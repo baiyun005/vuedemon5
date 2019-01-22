@@ -3,6 +3,7 @@ import './cube-ui'
 import App from './App.vue'
 import router from './Router/router'
 import store from './Store/Index'
+import './vant'
 
 Vue.config.productionTip = false
 
