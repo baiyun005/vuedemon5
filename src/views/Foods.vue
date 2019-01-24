@@ -45,7 +45,8 @@
           </svg>
         </li>
       </ul>
-      <ul class="screen_items_box">
+      <!-- <transition name="component-fade" mode="out-in" appear> -->
+      <!-- <ul class="screen_items_box">
         <li v-if="screenFlag&&screenIndex==0">
           <screen-box-item1></screen-box-item1>
         </li>
@@ -55,7 +56,11 @@
         <li v-if="screenFlag&&screenIndex==2">
           <screen-box-item3></screen-box-item3>
         </li>
-      </ul>
+      </ul> -->
+      <keep-alive >
+        <component class="screen_items_box" :is="modName"></component>
+      </keep-alive>
+      <!-- </transition> -->
     </header>
     <div class="shop_box">
       <shoplists></shoplists>
@@ -75,7 +80,9 @@ export default {
   data() {
     return {
       screenFlag:false,
-      screenIndex:0
+      screenIndex:0,
+      modName:"",
+      modNameLists:["screenBoxItem1","screenBoxItem2","screenBoxItem3"]
     };
   },
   created(){
@@ -95,10 +102,12 @@ export default {
   methods:{
     getIndex(index){
       if(this.screenIndex==index&&this.screenFlag){
-        this.screenFlag=false
+        this.screenFlag=false,
+        this.modName=""
       }else{
         this.screenIndex=index
         this.screenFlag=true
+        this.modName=this.modNameLists[index];
       }
     },
     getShop(){
@@ -136,5 +145,18 @@ export default {
   text-align: center;
   border-right: 1px solid #eee;
 }
+.screen_items_box{
+  width: 100%;
+  position: absolute;
+  top: 44px;
+  left: 0;
+}
+.component-fade-enter-active,
+.component-fade-leave-active {
+  transition: opacity 0.5s ease;
+}
 
+.component-fade-enter,.component-fade-leave-to {
+  opacity: 0;
+}
 </style>

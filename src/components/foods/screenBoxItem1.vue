@@ -70,9 +70,7 @@
       </router-link>
     </ul>
     <div class="item_lists">
-      <transition-group tag="ul" name="list">
       <router-view></router-view>
-      </transition-group>
     </div>
   </div>
 </template>
@@ -95,12 +93,12 @@ export default {
   background-color: white;
 }
 /* 选择种类的样式 */
-.screen_items_box {
+/* .screen_items_box {
   width: 100%;
   position: absolute;
   top: 37px;
   left: 0;
-}
+} */
 /* 二列表样式 */
 .er_items_box {
   background-color: #f1f1f1;
