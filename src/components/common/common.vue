@@ -19,5 +19,8 @@ export default {
         line-height: 44px;
         font-size: 20px;
         color:#fff;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 </style>
