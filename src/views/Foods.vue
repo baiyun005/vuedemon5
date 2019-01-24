@@ -1,9 +1,12 @@
 <template>
   <div class="foods_box">
-    <common>甜品餐饮</common>
+    <common>
+      甜品饮品
+    </common>
     <header class="screen_box">
       <ul class="screen_list">
-        <li>甜品饮品
+        <li class="selected_color" :class="(this.screenIndex==0&&this.screenFlag)?'selected_item':''"  @click="getIndex(0)">
+          甜品饮品
           <svg
             data-v-6cc1fce6
             width="10"
@@ -15,7 +18,8 @@
             <polygon data-v-6cc1fce6 points="0,3 10,3 5,8"></polygon>
           </svg>
         </li>
-        <li>排序
+        <li @click="getIndex(1)" :class="(this.screenIndex==1&&this.screenFlag)?'selected_item':''">
+          排序
           <svg
             data-v-6cc1fce6
             width="10"
@@ -27,7 +31,8 @@
             <polygon data-v-6cc1fce6 points="0,3 10,3 5,8"></polygon>
           </svg>
         </li>
-        <li>筛选
+        <li @click="getIndex(2)" :class="(this.screenIndex==2&&this.screenFlag)?'selected_item':''">
+          筛选
           <svg
             data-v-6cc1fce6
             width="10"
@@ -41,37 +46,20 @@
         </li>
       </ul>
       <ul class="screen_items_box">
-        <li>
+        <li v-if="screenFlag&&screenIndex==0">
           <screen-box-item1></screen-box-item1>
         </li>
-        <li>
-           <screen-box-item2></screen-box-item2>
+        <li v-if="screenFlag&&screenIndex==1">
+          <screen-box-item2></screen-box-item2>
+        </li>
+        <li v-if="screenFlag&&screenIndex==2">
+          <screen-box-item3></screen-box-item3>
         </li>
       </ul>
     </header>
-    <!-- <section>
-      <ul class="shop_list">
-        <li>
-          <img src="" alt="">
-          <div>
-            <div>
-            <p><span>品牌</span> <span>效果演示</span></p>
-            <p><span>保</span><span>准</span><span>票</span></p>
-            </div>
-            <div>
-              <p><span>星星</span> <span>4.7</span><span>月销<span>106笔</span></span></p>
-              <p> <span> 蜂鸟转送</span><span>准时达</span></p>
-            </div>
-            <div>
-              <p>￥<span>20</span>起送/配送费余额<span>5</span></p>
-              <p><span>1383</span>公里/ <span>14时45分钟</span></p>
-            </div>
-          </div>
-        </li>
-
-      </ul>
-
-    </section>-->
+    <div class="shop_box">
+      <shoplists></shoplists>
+    </div>
   </div>
 </template>
 
@@ -80,14 +68,50 @@ import axios from "../axios";
 import common from "../components/common/common";
 import screenBoxItem1 from "../components/foods/screenBoxItem1";
 import screenBoxItem2 from "../components/foods/screenBoxItem2";
+import screenBoxItem3 from "../components/foods/screenBoxItem3";
+import shoplists from "../components/foods/shoplists";
+import bus from "../bus"
 export default {
   data() {
-    return {};
+    return {
+      screenFlag:false,
+      screenIndex:0
+    };
+  },
+  created(){
+    this.getShop();
+    bus.$on("changedata",(data)=>{this.setData(data)})
   },
   components: {
-    common,screenBoxItem1,screenBoxItem2
+    common,
+    screenBoxItem1,
+    screenBoxItem2,
+    screenBoxItem3,
+    shoplists
   },
-  computed: {}
+  computed: {
+
+  },
+  methods:{
+    getIndex(index){
+      if(this.screenIndex==index&&this.screenFlag){
+        this.screenFlag=false
+      }else{
+        this.screenIndex=index
+        this.screenFlag=true
+      }
+    },
+    getShop(){
+      this.$store.dispatch("menu/getShop")
+    },
+    // 设置data中的参数   同时隐藏
+    setData(data){
+      console.log()
+      console.log(data);
+      this.screenFlag=false;
+      // this.$store.commit("menu/changedata",data)
+    }
+  }
 };
 </script>
 
@@ -104,11 +128,13 @@ export default {
   border-bottom: 1px solid #eee;
   justify-content: space-between;
 }
+.selected_item{
+  color: #abcdef;
+}
 .screen_list li {
   width: 100%;
   text-align: center;
   border-right: 1px solid #eee;
 }
-
 
 </style>

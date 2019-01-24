@@ -1,10 +1,10 @@
 <template>
-<!-- 分类里的二级目录 -->
+<!-- 餐馆分类 -->
   <div class="box_item1_wrapper">
     <ul class="er_items_box">
       <li>异国料理</li>
       <!-- class="selected_item" -->
-      <router-link tag="li" to="/item1lists?id=1">
+      <router-link class="selected_item" tag="li" to="/item1lists?id=1">
         <span>异国料理</span>
         <span>
           <span>1183</span>
@@ -70,13 +70,21 @@
       </router-link>
     </ul>
     <div class="item_lists">
+      <transition-group tag="ul" name="list">
       <router-view></router-view>
+      </transition-group>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data(){
+    return{
+
+    }
+  }
+};
 </script>
 
 <style>
@@ -84,6 +92,7 @@ export default {};
   width: 100%;
   display: flex;
   justify-content: center;
+  background-color: white;
 }
 /* 选择种类的样式 */
 .screen_items_box {
@@ -104,11 +113,11 @@ export default {};
   justify-content: space-between;
 }
 /* 点击选中的样式 */
-.er_items_box .selected_item {
+.er_items_box .router-link-exact-active {
   background-color: white;
 }
 .er_items_box li span:nth-child(2) span {
-  width: 35px;
+  padding:0 5px;
   line-height: 17px;
   text-align: center;
   height: 17px;

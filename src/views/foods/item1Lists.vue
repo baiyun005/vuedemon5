@@ -1,22 +1,23 @@
 <template>
   <ul class="item1_lists_wraper">
-    <li>水果</li>
+    <router-link tag="li" to="/">水果</router-link>
     <li>生鲜</li>
-    <li>{{itemIndex}}</li>
+    <li>{{this.$route.query.id}}</li>
   </ul>
 </template>
 
 <script>
 export default {
-  dat(){
+  data(){
     return {
-      itemIndex:Number
+      itemIndex:0
     }
   },
   computed:{  },
   watch:{
-    "$router"(){
-      this.itemIndex=this.$route.query.id
+    "$route"(){
+      this.itemIndex=this.$route.query.id;
+      console.log(this.itemIndex);
     }
   }
 };
