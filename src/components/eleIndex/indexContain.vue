@@ -5,59 +5,130 @@
                 <van-icon name="shop-o" class="icon"/>
                 <span>附近店家</span>
             </div>
-            <router-link :to="{path:'/shop',query:{id:con.id}}" class="list" v-for="(con,index) in cons" :key="index">
-                <img :src="'http://elm.cangdu.org/img/'+con.image_path" alt="">
-                <div class="right">
-                    <div class="right-top right-flex">
-                        <div class="top-title">
-                            <span class="brand">品牌</span>
-                            <span class="name">{{con.name}}</span>
-                        </div>
-                        <div class="top-bao">
-                            <span v-for="(item,index) in con.supports" :key="index">{{item.icon_name}}</span>
-                        </div>
-                    </div>
-                    <div class="right-center right-flex">
-                        <div>
-                            <div class="center-star">
-                                <img src="../../../public/img/star2.png" alt="">
-                                <div class="star" :style="'width:'+(con.rating/ 5 * 100)%+''"></div>
+            <div class="con">
+                <cube-scroll
+                    ref="scroll"
+                    :options="options"
+                     @pulling-up="pullupHandler"
+                    >
+                    <router-link :to="{path:'/shop',query:{id:con.id}}" class="list" v-for="(con,index) in cons" :key="index" @touchstart="refresh">
+                        <img :src="'http://elm.cangdu.org/img/'+con.image_path" alt="">
+                        <div class="right">
+                            <div class="right-top right-flex">
+                                <div class="top-title">
+                                    <span class="brand">品牌</span>
+                                    <span class="name">{{con.name}}</span>
+                                </div>
+                                <div class="top-bao">
+                                    <span v-for="(item,index) in con.supports" :key="index">{{item.icon_name}}</span>
+                                </div>
                             </div>
-                            <span class="rate">{{con.rating}}</span>
-                            <span class="all">月售{{con.recent_order_num}}单</span>
+                            <div class="right-center right-flex">
+                                <div>
+                                    <div class="center-star">
+                                        <img src="../../../public/img/star2.png" alt="">
+                                        <div class="star" :style="'width:'+(con.rating/ 5 * 100)%+''"></div>
+                                    </div>
+                                    <span class="rate">{{con.rating}}</span>
+                                    <span class="all">月售{{con.recent_order_num}}单</span>
+                                </div>
+                                <div>
+                                    <span class="kuaidi">{{con.delivery_mode.text}}</span>
+                                    <span class="zhun" v-for="(item,index) in con.supports" :key="index">{{item.icon_name}}</span>
+                                </div>
+                            </div>
+                            <div class="right-bottom right-flex">
+                                <div class="money">
+                                    <span>￥{{con.float_minimum_order_amount}}元起/</span>
+                                    <span>配送费约￥{{con.float_delivery_fee}}</span>
+                                </div>
+                                <div>
+                                    <span class="kilo">{{con.distance}}</span>
+                                    <span class="time">{{con.order_lead_time}}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <span class="kuaidi">{{con.delivery_mode.text}}</span>
-                            <span class="zhun" v-for="(item,index) in con.supports" :key="index">{{item.icon_name}}</span>
-                        </div>
-                    </div>
-                    <div class="right-bottom right-flex">
-                        <div class="money">
-                            <span>￥{{con.float_minimum_order_amount}}元起/</span>
-                            <span>配送费约￥{{con.float_delivery_fee}}</span>
-                        </div>
-                        <div>
-                            <span class="kilo">{{con.distance}}</span>
-                            <span class="time">{{con.order_lead_time}}</span>
-                        </div>
-                    </div>
-                </div>
-            </router-link>
-        <!-- <div class="base"></div> -->
+                    </router-link>
+                </cube-scroll>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import axios from "axios"
 export default {
+    data(){
+        return {
+            page:1,
+            flag:true,
+            options: {
+                    observeDOM: true,
+                    click: true,
+                    probeType: 1,
+                    scrollbar: false,
+                    pullUpLoad: {
+                    threshold: 50,
+                    txt: { more: '正在加载', noMore: '' }
+                }
+            },
+             toast: this.$createToast({
+                time: 10000,
+                txt: '加载中'
+            })
+        }
+    },
     computed:{
         cons(){
             return this.$store.state.eleIndex.con
         },
     },
-    created(){
-         this.$store.dispatch("eleIndex/getCon")
+    methods:{
+        getAll(){
+            this.toast.show()
+            this.$store.dispatch("eleIndex/getCon").then(()=>{
+                this.toast.hide()
+            })
+        },
+        pullupHandler(){
+            var _this=this;
+            this.page=this.page+1;
+            if(this.flag){
+                this.flag=false;
+                this.$store.dispatch("eleIndex/getCons",this.page).then(()=>{
+                    this.$refs.scroll.forceUpdate()
+                    _this.flag=true
+               })
+            }
+        },
+        refresh(){
+            this.$refs.scroll.refresh()
+            console.log(this.$refs.scroll)
+        }
     },
+    created(){
+        this.getAll()
+    },
+    // mounted(){
+    //     console.log(this.$refs.scroll)
+    // }
+    // mounted(){
+    //         let sw = true
+    //         window.addEventListener('scroll',function(){
+    //             let scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+    //             console.log(document.documentElement.clientHeight+'-----------'+window.innerHeight); // 可视区域高度
+    //             console.log(scrollTop); // 滚动高度
+    //             let bodyHeight = document.body.scrollHeight ||  document.documentElement.scrollHeight; // 文档高度
+    //             // 判断是否滚动到底部
+    //              if (scrollTop + window.innerHeight >=bodyHeight) {
+    //                 //判断请求发送标志位，避免重复请求(这个需要自己在data里声明，直接贴代码会报错。默认为false，发送请求前改为true， 请求完成回调函数里改回false)
+    //                 console.log("fertgreshgtrd")
+    //                 if (this.loading) return;
+    //                 //发送请求
+    //                 this.getAll();
+    //             };
+    //         })
+    // }
 }
 </script>
 
@@ -69,8 +140,15 @@ export default {
         line-height: none;
         font-size: 0.24px;
     }
+    .con{
+        position: absolute;
+        top:5.3rem;
+        bottom:0;
+        width: 100%;
+    }
     .contain .title{
-        padding:0.2rem 0.3rem;
+        margin:0.2rem 0.3rem;
+        background: #fff;
     }
     .contain .title .icon{
         color:#999;
