@@ -52,9 +52,15 @@ export default {
     }
   },
   created(){
+
     this.$store.dispatch('shopping/geteva')
     this.$store.dispatch('shopping/getratings')
     this.$store.dispatch('shopping/score')
+    this.$store.dispatch('shopping/getdata') 
+     this.$store.dispatch('shopping/getheard') 
+    // 获取router中的Id
+    const id=this.$route.query.id
+    this.$store.dispatch('shopping/getid',id) 
   }
 }
 </script>

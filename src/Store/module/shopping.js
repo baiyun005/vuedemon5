@@ -13,7 +13,8 @@ export default {
         cart:[],
         total:0.00,
         page:0,
-        score:null
+        score:null,
+        id:1
     },
     mutations:{
         setdata(state,data){
@@ -100,13 +101,15 @@ export default {
         },
         setscore(state,data){
             state.score=data
-            
+        },
+        getid(state,id){
+            state.id=id
         }
     },
     actions:{
         getdata({commit,state}){
             return new Promise((resolve,reject)=>{
-              axios.get('http://elm.cangdu.org/shopping/v2/menu?restaurant_id='+state.type).then(res=>{
+              axios.get('http://elm.cangdu.org/shopping/v2/menu?restaurant_id='+state.id).then(res=>{
                 console.log(res.data)
                 res.data.forEach(i => {
                     i.foods.forEach(s=>{
@@ -121,7 +124,7 @@ export default {
         },
         getheard({commit,state}){
             return new Promise((resolve,reject)=>{
-                axios.get('http://elm.cangdu.org/shopping/restaurant/'+state.type).then(res=>{
+                axios.get('http://elm.cangdu.org/shopping/restaurant/'+state.id).then(res=>{
                     console.log(res.data) 
                     commit("setheard",res.data)
                     resolve()
@@ -131,7 +134,7 @@ export default {
         // 评论1
         geteva({commit,state}){
             return new Promise((resolve,reject)=>{
-                axios.get('http://elm.cangdu.org/ugc/v2/restaurants/1/ratings/tags').then(res=>{
+                axios.get('http://elm.cangdu.org/ugc/v2/restaurants/'+state.id+'/ratings/tags').then(res=>{
                     console.log(res.data) 
                     commit("seteva",res.data)
                     resolve()
@@ -140,7 +143,7 @@ export default {
         },
         getratings({commit,state},page){
             return new Promise((resolve,reject)=>{
-                axios.get('http://elm.cangdu.org/ugc/v2/restaurants/1/ratings?has_content=true&offset='+state.page).then(res=>{
+                axios.get('http://elm.cangdu.org/ugc/v2/restaurants/'+state.id+'/ratings?has_content=true&offset='+state.page).then(res=>{
                     console.log(res.data) 
                     commit("setratings",res.data)
                     resolve()
@@ -149,7 +152,7 @@ export default {
         },
         score({commit,state}){
             return new Promise((resolve,reject)=>{
-                axios.get('http://elm.cangdu.org/ugc/v2/restaurants/1/ratings/scores').then(res=>{
+                axios.get('http://elm.cangdu.org/ugc/v2/restaurants/'+state.id+'/ratings/scores').then(res=>{
                     console.log(res.data)
                     commit("setscore",res.data)
                     resolve()

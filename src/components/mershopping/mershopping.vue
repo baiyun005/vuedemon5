@@ -98,7 +98,7 @@ export default {
         }
     },
     created(){
-        this.$store.dispatch('shopping/getdata') 
+        // this.$store.dispatch('shopping/getdata') 
     }
 }
 </script>
