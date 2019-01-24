@@ -5,7 +5,7 @@
                 <van-icon name="shop-o" class="icon"/>
                 <span>附近店家</span>
             </div>
-            <router-link :to="{path:'/Mershopping',query:{id:con.id}}" class="list" v-for="(con,index) in cons" :key="index">
+            <router-link :to="{path:'/shop',query:{id:con.id}}" class="list" v-for="(con,index) in cons" :key="index">
                 <img :src="'http://elm.cangdu.org/img/'+con.image_path" alt="">
                 <div class="right">
                     <div class="right-top right-flex">

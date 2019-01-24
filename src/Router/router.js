@@ -3,7 +3,6 @@ import Router from 'vue-router'
 
 import Index from "../views/Index"
 Vue.use(Router)
-
 export default new Router({
   // mode: 'history',
   base: process.env.BASE_URL,
@@ -11,6 +10,6 @@ export default new Router({
     {
       path:"/",
       component:Index
-    }
+    },
   ]
 })
