@@ -58,9 +58,10 @@
         </li>
       </ul> -->
       <keep-alive >
+        <transition name="component-fade"  appear >
         <component class="screen_items_box" :is="modName"></component>
+        </transition>
       </keep-alive>
-      <!-- </transition> -->
     </header>
     <div class="shop_box">
       <shoplists></shoplists>
