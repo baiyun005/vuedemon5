@@ -5,7 +5,8 @@
             <cube-scroll
             :options="options"
             ref="scroll"
-            @pulling-up="pullupHandler">
+            @pulling-up="pullupHandler"
+            :data="ratings">
             <!-- scores -->
             <div class="rating_header" >
                 <div class="rating_header_left">
@@ -36,6 +37,7 @@
                     </li>
                 </ul>
             </div>
+            <!-- ratings -->
             <ul class="rating_list_ul" >
                 <li v-for="(rating,index) in ratings" :key="index">
                     <div class="ul_cont">
@@ -53,7 +55,12 @@
                             </div>
                             <div class="food_img">
                                 <div v-for="(item,index) in rating.item_ratings" :key="index">
-                                    <img src="//elm.cangdu.org/img/164ad0b6a3917599.jpg" alt="">
+                                    <div v-if="item.image_hash">
+                                        <img :src="'https://fuss10.elemecdn.com/'+item.image_hash.slice(0,1)+'/'+item.image_hash.slice(1,3)+'/'+item.image_hash.slice(3)+'.jpeg'" alt="">
+                                    </div>
+                                    <div v-else>
+
+                                    </div>
                                     <p>{{item.food_name}}</p>
                                 </div>
                             </div>

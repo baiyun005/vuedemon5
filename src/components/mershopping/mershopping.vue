@@ -4,7 +4,7 @@
         <cube-scroll-nav
         :side="true"
         :data="tabs"
-        :current="current"
+        :current="tabs[0].name"
         @change="changeHandler"
         @sticky-change="stickyChangeHandler">
        
@@ -51,11 +51,6 @@
 <script>
 import shopcart from './shopcart'
 export default {
-    data(){
-        return{
-            current:"热销榜"
-        }
-    },
     computed:{
         tabs(){
             return this.$store.state.shopping.shop
@@ -80,25 +75,36 @@ export default {
                 price:f,
                 restaurant_id:b,
                 sku_id:a,
-                num:g
+                num:1
             }
             this.$store.commit('shopping/removecart',dataset)
         },
         add(a,b,c,d,e,f,g){
             const dataset={
-                category_id:c,
-                item_id:d,
-                name:e,
-                price:f,
                 restaurant_id:b,
+                item_id:d,
+                category_id:c,
                 sku_id:a,
-                num:g
+                price:f,
+                 name:e,
+                num:1
+                // b1:{
+                //    c1:{
+                //      d1:{
+                //        a1:{
+                //         sku_id:a,
+                //         num:1,
+                //         price:f,
+                //         id:a,
+                //         name:e
+                //        }  
+                //      }  
+                //    } 
+                // }
             }
+            console.log(dataset)
             this.$store.commit('shopping/addcart',dataset)
         }
-    },
-    created(){
-        // this.$store.dispatch('shopping/getdata') 
     }
 }
 </script>

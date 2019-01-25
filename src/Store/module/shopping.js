@@ -6,7 +6,7 @@ export default {
     namespaced:true,
     state:{
         shop:[],
-        heard:null,
+        heard:'',
         eva:[],
         ratings:[],
         type:1,
@@ -21,18 +21,19 @@ export default {
             state.shop=data
         },
         addcart(state,dataset){
+            localStorage.setItem("buycart",dataset)
             //对应数据num加1
             state.shop.forEach(i => {
                 i.foods.forEach(s=>{
-                    if(s.specfoods[0].item_id===dataset.item_id){
+                    if(s.specfoods[0].sku_id===dataset.sku_id){
                         s.num++
                     }
                 })
             });
-            console.log(state.shop)
+            // console.log(state.shop)
             //购物车存数据
-            const item_id=dataset.item_id
-            const item=state.cart.find(i=>(i.item_id===item_id))
+            const sku_id=dataset.sku_id
+            const item=state.cart.find(i=>(i.sku_id===sku_id))
             if(!item){
                 state.cart=[...state.cart,dataset]
                 console.log("不存在")
@@ -44,16 +45,24 @@ export default {
             console.log(state.cart)
 
             // 计算总价
-            state.cart.forEach(i=>{
-                state.total=i.num*i.price
-            })
+            if(state.total>0){
+                state.total=0
+                state.cart.forEach(i=>{
+                    state.total+=i.num*i.price
+                })
+            }else{
+                state.cart.forEach(i=>{
+                    state.total=i.num*i.price
+                })
+            }
+            
             
         },
         removecart(state,dataset){
              //对应数据num减1
             state.shop.forEach(i => {
                 i.foods.forEach(s=>{
-                    if(s.specfoods[0].item_id===dataset.item_id){
+                    if(s.specfoods[0].sku_id===dataset.sku_id){
                         if(s.num<0){
                             s.num=0 
                         }else{
@@ -63,26 +72,29 @@ export default {
                 })
             });
              //减去购物车数据
-            const item_id=dataset.item_id
+            const sku_id=dataset.sku_id
             state.cart.forEach(i=>{
-                if(i.item_id===item_id){
-                    if(i.num<0){
-                        i.num=0 
-                    }else{
+                if(i.sku_id===sku_id){
+                    if(i.num>0){
                         i.num--
+                    }else{
+                        i.num=0 
                     }
                 }
             })
             console.log(state.cart)
 
             // 计算总价
-            state.cart.forEach(i=>{
-                if(state.total<0){
-                    state.total=0
-                }else{
-                    state.total=i.num*i.price
-                }
-            })
+            if(state.total>0){
+                state.total=0
+                state.cart.forEach(i=>{
+                    state.total+=i.num*i.price
+                })
+            }
+            // 判断num是否为0 
+            const carts=state.cart.filter(i=>(i.num>0))
+            state.cart=carts 
+            console.log(state.cart)
         },
         setheard(state,data){
             state.heard=data
@@ -143,7 +155,7 @@ export default {
         },
         getratings({commit,state},page){
             return new Promise((resolve,reject)=>{
-                axios.get('http://elm.cangdu.org/ugc/v2/restaurants/'+state.id+'/ratings?has_content=true&offset='+state.page).then(res=>{
+                axios.get('http://elm.cangdu.org/ugc/v2/restaurants/'+state.id+'/ratings?has_content=true&offset='+state.page+'&limit=10&tag_name=').then(res=>{
                     console.log(res.data) 
                     commit("setratings",res.data)
                     resolve()

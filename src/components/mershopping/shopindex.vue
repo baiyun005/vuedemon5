@@ -60,7 +60,7 @@ export default {
      this.$store.dispatch('shopping/getheard') 
     // 获取router中的Id
     const id=this.$route.query.id
-    this.$store.dispatch('shopping/getid',id) 
+    this.$store.commit('shopping/getid',id) 
   }
 }
 </script>

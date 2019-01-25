@@ -26,7 +26,7 @@ export default {
     }
   },
   created(){
-    // this.$store.dispatch('shopping/getheard') 
+    this.$store.dispatch('shopping/getheard') 
   }
 }
 </script>

@@ -24,7 +24,8 @@
                         <span>清空</span>
                       </div>
                   </div>
-                  <div v-for="(item,index) in cart" :key="index" class="cart_food_details">
+                  <div>
+                    <div v-for="(item,index) in cart" :key="index" class="cart_food_details">
                       <div>{{item.name}}</div>
                       <div class="cart_list_price">
                           <div>￥{{item.price}}</div>
@@ -34,7 +35,9 @@
                               <span ><i class="cubeic-add"></i></span>
                           </div>
                       </div>
+                    </div>
                   </div>
+                  
                 </div>  
               </transition>
               <!-- </div>   -->
