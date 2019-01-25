@@ -10,7 +10,18 @@ export default {
     components:{
         mershopping,
         shopindex
-    }
+    },
+     watch:{
+      '$route':{
+        handler(to){
+          console.log(11111)
+          // this.$store.dispatch('shopping/getdata',to.$route.query)
+           
+        },
+        immdiate:true
+      }
+     
+  },
 }
 </script>
 

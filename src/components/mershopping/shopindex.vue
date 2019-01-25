@@ -38,6 +38,17 @@ export default {
     usereva,
     shopheard 
   },
+  watch:{
+      '$route':{
+        handler(to){
+          console.log(11111)
+          // this.$store.dispatch('shopping/getdata',to.$route.query)
+           
+        },
+        immdiate:true
+      }
+     
+  },
   methods:{
     tabs(){
       if(!this.tab){
@@ -52,15 +63,17 @@ export default {
     }
   },
   created(){
+     // 获取router中的Id
+    const id=this.$route.query.id
+    console.log(id)
+    this.$store.commit('shopping/getid',id) 
 
     this.$store.dispatch('shopping/geteva')
     this.$store.dispatch('shopping/getratings')
     this.$store.dispatch('shopping/score')
     this.$store.dispatch('shopping/getdata') 
      this.$store.dispatch('shopping/getheard') 
-    // 获取router中的Id
-    const id=this.$route.query.id
-    this.$store.commit('shopping/getid',id) 
+   
   }
 }
 </script>

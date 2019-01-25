@@ -60,6 +60,16 @@ export default {
             return this.$store.state.shopping.total
         }
     },
+    // watch:{
+    //   '$route':{
+    //     handler(to){
+    //       console.log(to.$route.query)
+    //       console.log(222222)
+    //       // this.cart.filter(i=>(i.))
+    //     },
+    //     immdiate:true
+    //   }
+    // },
     methods:{
         showdata(){
           this.isshow=!this.isshow

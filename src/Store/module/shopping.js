@@ -119,7 +119,7 @@ export default {
         }
     },
     actions:{
-        getdata({commit,state}){
+        getdata({commit,state},id){
             return new Promise((resolve,reject)=>{
               axios.get('http://elm.cangdu.org/shopping/v2/menu?restaurant_id='+state.id).then(res=>{
                 console.log(res.data)
