@@ -45,18 +45,6 @@
           </svg>
         </li>
       </ul>
-      <!-- <transition name="component-fade" mode="out-in" appear> -->
-      <!-- <ul class="screen_items_box">
-        <li v-if="screenFlag&&screenIndex==0">
-          <screen-box-item1></screen-box-item1>
-        </li>
-        <li v-if="screenFlag&&screenIndex==1">
-          <screen-box-item2></screen-box-item2>
-        </li>
-        <li v-if="screenFlag&&screenIndex==2">
-          <screen-box-item3></screen-box-item3>
-        </li>
-      </ul> -->
       <keep-alive >
         <transition name="component-fade"  appear >
         <component class="screen_items_box" :is="modName"></component>
@@ -88,6 +76,7 @@ export default {
   },
   created(){
     this.getShop();
+  //  设置Foods中的参数
     bus.$on("changedata",(data)=>{this.setData(data)})
   },
   components: {
@@ -101,6 +90,7 @@ export default {
 
   },
   methods:{
+    // 获取对应的下下标对应的模块出现
     getIndex(index){
       if(this.screenIndex==index&&this.screenFlag){
         this.screenFlag=false,
@@ -111,6 +101,7 @@ export default {
         this.modName=this.modNameLists[index];
       }
     },
+    // 获取商铺数据
     getShop(){
       this.$store.dispatch("menu/getShop")
     },

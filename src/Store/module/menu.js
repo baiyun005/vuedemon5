@@ -7,6 +7,7 @@ const vue = new Vue()
 export default {
     namespaced: true,
     state: {
+        // 发送请求数据
         data: {
             latitude: String, //经度
             longitude: String, //纬度
@@ -16,14 +17,16 @@ export default {
             order_by:4,//排序方式 默认为4智能排序
             delivery_mode:[1],//配送方式id
             support_ids:[]
-        }
+        },
+        shopList:[]
     },
     mutations: {
-        changedata(state,getter,){
-            state.data={...state.data}
+        changedata(state,data){
+            state.data={...state.data,...data}
         }
     },
     // http://ele.kassing.cn/shopping/restaurants?latitude=31.22967&longitude=121.4762
+    // 获取商家数据事件
     actions: {
         getShop({commit,state}){
             return new Promise((resolve,reject)=>{
@@ -32,6 +35,7 @@ export default {
                 }).then(res=>{
                     console.log(123)
                     console.log(res)
+                    resolve(res.data)
                 })
             })
         }

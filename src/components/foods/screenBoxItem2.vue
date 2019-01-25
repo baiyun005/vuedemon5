@@ -16,13 +16,14 @@ import bus from "../../bus"
 export default {
   data(){
     return {
-      inde:1
+      inde:Number
     }
   },
   methods:{
     // 传递排序方式
     setdata(index){
       this.inde=index
+      // 获取排序方式的值并传递给menu/data
       const data={
         order_by:index
       }
