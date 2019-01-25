@@ -5,6 +5,11 @@ import vant from "./vant"
 import router from './Router/router'
 import store from './Store/Index'
 
+
+import Vant from 'vant';
+import 'vant/lib/index.css';
+Vue.use(Vant)
+
 Vue.config.productionTip = false
 
 new Vue({
