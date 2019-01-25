@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import './cube-ui'
+import Cube from './cube-ui'
 import App from './App.vue'
 import vant from "./vant"
 import router from './Router/router'
@@ -11,5 +11,6 @@ new Vue({
   router,
   store,
   vant,
+  Cube,
   render: h => h(App)
 }).$mount('#app')

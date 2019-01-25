@@ -6,7 +6,8 @@ export default {
     namespaced:true,
     state:{
         nav:[],
-        con:[]
+        con:[],
+        articles:[]
     },
     mutations:{
         getNav(state,nav){
@@ -18,6 +19,11 @@ export default {
         },
         getCon(state,con){
             state.con=con
+        },
+        getCons(state,cons){
+            // console.log(cons)
+            state.con=[...state.con,...cons]
+            console.log(state.con)
         }
     },
     actions:{
@@ -36,11 +42,25 @@ export default {
                 axios.get("http://elm.cangdu.org/shopping/restaurants?latitude=34.671833&longitude=113.712311").then(res=>{
                     if(res.status===200){
                         commit("getCon",res.data)
-                        console.log(res.data)
                         resolve()
                     }
                 })
             })
-        } 
+        },
+        getCons({commit},page){
+            console.log(page)
+            return new Promise((resolve,reject)=>{
+                axios.get("http://elm.cangdu.org/shopping/restaurants?latitude=34.671833&longitude=113.712311",{
+                    params:{
+                        page
+                    }
+                }).then(res=>{
+                    if(res.status===200){
+                        commit("getCons",res.data)
+                        resolve()
+                    }
+                })
+            })
+        }
     }
 }
