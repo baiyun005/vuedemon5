@@ -16,14 +16,14 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path:"/",
+      path:"/Index",
       component:Index
     },
     {
       path:"/order",
       component:Order
     },{
-      path:'/login',
+      path:'/',
       component:login,
     },{
       path:'/changepw',

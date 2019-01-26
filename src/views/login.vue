@@ -40,7 +40,6 @@
 
 <script>
 import axios from './../axios'
-// import axios from './../axios'
 export default {
     components:{  
     },
@@ -170,7 +169,7 @@ export default {
                         //跳转首页
                         setTimeout(function(){
                             // 跳转主页
-                            this.$router.push('/Index')
+                            this.$router.push('Index')
                         },2000)
                     }else{
                         // console.log(res.data.message)
