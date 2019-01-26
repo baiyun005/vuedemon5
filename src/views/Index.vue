@@ -3,6 +3,7 @@
         <header>
             <common>上海</common>
         </header>
+        {{this.$route.query.geohash}}
     </div>
 </template>
 
@@ -10,7 +11,7 @@
 import common from "../components/common/common"
 export default {
     components:{
-        common
+        common,
     }
 }
 </script>
