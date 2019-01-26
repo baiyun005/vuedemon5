@@ -1,7 +1,7 @@
 <template>
    <div>
         <header>
-            <common>上海</common>
+            <common>{{title}}</common>
         </header>
    </div>
 </template>
@@ -11,6 +11,17 @@ import common from "../common/common"
 export default {
       components:{
         common
+    },
+    props:{
+        geohash:String
+    },
+    computed:{
+            title(){
+                return this.$store.state.eleIndex.title
+            }
+    },
+     created(){
+        this.$store.dispatch("eleIndex/getTitle",this.geohash)
     }
 }
 </script>

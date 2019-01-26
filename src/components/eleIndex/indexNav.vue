@@ -14,17 +14,16 @@
 
 <script>
 export default {
-    data(){
-        return{
-        }
-    },
+   props:{
+       geohash:String
+   },
     computed:{
          navs(){
                 return this.$store.state.eleIndex.nav
             }
     },
     created(){
-        this.$store.dispatch("eleIndex/getNav")
+        this.$store.dispatch("eleIndex/getNav",this.geohash)
     }
 }
 </script>

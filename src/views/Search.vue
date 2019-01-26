@@ -143,10 +143,9 @@ export default {
     font-size: 0.25rem;
   }
   .inputValList  .lis{
-    padding-top: 0.4rem ;
+    padding: 0.4rem  0;
     background:#fff;
-    height: 0.9rem;
-    border-top: 1px solid #e4e4e4;
+    height: 1.2rem;
     border-bottom: 1px solid #e4e4e4;
   }
   .pois-name .pois-name-a{
@@ -156,11 +155,9 @@ export default {
     margin: 0 auto 0.2rem ;
   }
   .pois-name .pois-name-b{
-    /* font-size: 0.35rem; */
-
     font-weight:400;
     width:90%;
-    margin: 0 auto 0.3rem ;
+    margin: 0 auto 10px;
     color: #999;
   }
 </style>

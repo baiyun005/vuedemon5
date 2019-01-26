@@ -8,7 +8,6 @@ Vue.use(Vant)
 
 Vue.config.productionTip = false
 
-Vue.use(vant)
 new Vue({
   router,
   store,

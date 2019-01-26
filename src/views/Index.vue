@@ -1,10 +1,10 @@
 <template>
     <div>
         <header>
-            <index-header></index-header>
+            <index-header :geohash="geohash"></index-header>
         </header>
-        <index-nav></index-nav>
-        <index-contain></index-contain>
+        <index-nav :geohash="geohash"></index-nav>
+        <index-contain :geohash="geohash"></index-contain>
     </div>
 </template>
 
@@ -13,6 +13,11 @@ import indexHeader from "../components/eleIndex/indexHeader"
 import indexNav from "../components/eleIndex/indexNav"
 import indexContain from "../components/eleIndex/indexContain"
 export default {
+    data(){
+      return {
+            geohash:this.$route.query.geohash
+       }  
+    },
     components:{
         indexHeader,
         indexNav,

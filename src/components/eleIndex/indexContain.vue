@@ -33,7 +33,7 @@
                                     <span class="all">月售{{con.recent_order_num}}单</span>
                                 </div>
                                 <div>
-                                    <span class="kuaidi">{{con.delivery_mode.text}}</span>
+                                    <span class="kuaidi">蜂鸟快送</span>
                                     <span class="zhun" v-for="(item,index) in con.supports" :key="index">{{item.icon_name}}</span>
                                 </div>
                             </div>
@@ -70,13 +70,16 @@ export default {
                     pullUpLoad: {
                     threshold: 50,
                     txt: { more: '正在加载', noMore: '' }
-                }
+                },
             },
              toast: this.$createToast({
                 time: 10000,
                 txt: '加载中'
-            })
+            }),
         }
+    },
+    props:{
+        geohash:String
     },
     computed:{
         cons(){
@@ -86,7 +89,7 @@ export default {
     methods:{
         getAll(){
             this.toast.show()
-            this.$store.dispatch("eleIndex/getCon").then(()=>{
+            this.$store.dispatch("eleIndex/getCon",this.geohash.split(",")).then(()=>{
                 this.toast.hide()
             })
         },
@@ -95,7 +98,10 @@ export default {
             this.page=this.page+1;
             if(this.flag){
                 this.flag=false;
-                this.$store.dispatch("eleIndex/getCons",this.page).then(()=>{
+                this.$store.dispatch("eleIndex/getCons",{
+                    page:this.page,
+                    geohash:this.geohash.split(",")
+                    }).then(()=>{
                     this.$refs.scroll.forceUpdate()
                     _this.flag=true
                })
@@ -103,7 +109,6 @@ export default {
         },
         refresh(){
             this.$refs.scroll.refresh()
-            console.log(this.$refs.scroll)
         }
     },
     created(){

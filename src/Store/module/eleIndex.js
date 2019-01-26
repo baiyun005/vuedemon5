@@ -5,11 +5,15 @@ const vue = new Vue()
 export default {
     namespaced:true,
     state:{
+        title:"",
         nav:[],
         con:[],
         articles:[]
     },
     mutations:{
+        getTitle(state,title){
+            state.title=title
+        },
         getNav(state,nav){
             const arr =[];
             for(let i=0;i<nav.length;i+=8){
@@ -21,15 +25,20 @@ export default {
             state.con=con
         },
         getCons(state,cons){
-            // console.log(cons)
             state.con=[...state.con,...cons]
-            console.log(state.con)
         }
     },
     actions:{
-        getNav({commit}){
+        getTitle({commit},geohash){
             return new Promise((resolve,reject)=>{
-                axios.get("http://elm.cangdu.org/v2/index_entry?geohash=34.8022,113.54414").then(res=>{
+              axios.get("http://ele.kassing.cn/v2/pois/"+geohash).then(res=>{
+                  commit("getTitle",res.data.name)
+              })
+            })
+          },
+        getNav({commit},geohash){
+            return new Promise((resolve,reject)=>{
+                axios.get("http://elm.cangdu.org/v2/index_entry?geohash="+geohash).then(res=>{
                 if(res.status===200){
                     commit("getNav",res.data)
                     resolve()
@@ -37,9 +46,15 @@ export default {
             })
             })
         },
-        getCon({commit}){
+        getCon({commit},geohash){
+            console.log(geohash)
             return new Promise((resolve,reject)=>{
-                axios.get("http://elm.cangdu.org/shopping/restaurants?latitude=34.671833&longitude=113.712311").then(res=>{
+                axios.get("http://elm.cangdu.org/shopping/restaurants",{
+                    params:{
+                        latitude:geohash[0],
+                        longitude:geohash[1]
+                    }
+                }).then(res=>{
                     if(res.status===200){
                         commit("getCon",res.data)
                         resolve()
@@ -47,12 +62,14 @@ export default {
                 })
             })
         },
-        getCons({commit},page){
+        getCons({commit},{page,geohash}){
             console.log(page)
             return new Promise((resolve,reject)=>{
-                axios.get("http://elm.cangdu.org/shopping/restaurants?latitude=34.671833&longitude=113.712311",{
+                axios.get("http://elm.cangdu.org/shopping/restaurants",{
                     params:{
-                        page
+                        latitude:geohash[0],
+                        longitude:geohash[1],
+                        offset:(page-1)*20
                     }
                 }).then(res=>{
                     if(res.status===200){

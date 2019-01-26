@@ -169,7 +169,7 @@ export default {
                         //跳转首页
         
                             // 跳转主页
-                            this.$router.push('/Index')
+                            this.$router.push('/position')
                     }else{
                         // console.log(res.data.message)
                         this.toast = this.$createToast({
