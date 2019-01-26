@@ -4,6 +4,7 @@ import App from './App.vue'
 import vant from "./vant"
 import router from './Router/router'
 import store from './Store/Index'
+import './vant'
 
 
 import Vant from 'vant';
