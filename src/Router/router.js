@@ -1,13 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from "../views/Index"
-<<<<<<< HEAD
 import Order from '../views/Order'
-=======
 import login from "../views/login"
 import changepw from "../views/changepw"
 import Mershopping from "../views/Mershopping"
->>>>>>> 780ecacf2568d5ddc1293364f8c882e0dde98048
 Vue.use(Router)
 
 
@@ -21,12 +18,10 @@ export default new Router({
     {
       path:"/",
       component:Index
-<<<<<<< HEAD
     },
     {
       path:"/order",
       component:Order
-=======
     },{
       path:'/login',
       component:login,
@@ -46,7 +41,6 @@ export default new Router({
           component:item1Lists
         }
       ]
->>>>>>> 780ecacf2568d5ddc1293364f8c882e0dde98048
     }
   ]
 })
