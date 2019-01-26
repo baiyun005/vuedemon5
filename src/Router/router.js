@@ -1,10 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from "../views/Index"
+<<<<<<< HEAD
 import Order from '../views/Order'
 import login from "../views/login"
 import changepw from "../views/changepw"
 import Mershopping from "../views/Mershopping"
+=======
+import Position from '../views/Position'
+import Search from '../views/Search'
+
+>>>>>>> position
 Vue.use(Router)
 
 
@@ -20,6 +26,7 @@ export default new Router({
       component:Index
     },
     {
+<<<<<<< HEAD
       path:"/order",
       component:Order
     },{
@@ -41,6 +48,14 @@ export default new Router({
           component:item1Lists
         }
       ]
+=======
+      path:'/position',
+      component:Position
+    },
+    {
+      path:'/search/:id',
+      component:Search
+>>>>>>> position
     }
   ]
 })
