@@ -1,6 +1,8 @@
 <template>
     <div class="common">
-        <div><slot></slot></div>
+        <div>
+            <slot></slot>
+        </div>
     </div>
 </template>
 
@@ -19,5 +21,8 @@ export default {
         line-height: 44px;
         font-size: 20px;
         color:#fff;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 </style>
