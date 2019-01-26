@@ -167,10 +167,9 @@ export default {
                         localStorage.setItem("user",this.value.username)
                         localStorage.setItem("pw",this.value.password)
                         //跳转首页
-                        setTimeout(function(){
+        
                             // 跳转主页
-                            this.$router.push('Index')
-                        },2000)
+                            this.$router.push('/Index')
                     }else{
                         // console.log(res.data.message)
                         this.toast = this.$createToast({
