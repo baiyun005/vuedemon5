@@ -3,7 +3,12 @@ import Router from 'vue-router'
 import Index from "../views/Index"
 import login from "../views/login"
 import changepw from "../views/changepw"
+import Mershopping from "../views/Mershopping"
 Vue.use(Router)
+
+
+import Foods from "../views/Foods"
+import item1Lists from "../views/foods/item1Lists"
 
 export default new Router({
   // mode: 'history',
@@ -18,6 +23,19 @@ export default new Router({
     },{
       path:'/changepw',
       component:changepw
+    },
+    {
+      path:"/shop",
+      component:Mershopping
+    },{
+      path:"/foods",
+      component:Foods,
+      children:[
+        {
+          path:"/item1lists",
+          component:item1Lists
+        }
+      ]
     }
   ]
 })

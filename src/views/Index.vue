@@ -1,14 +1,22 @@
 <template>
     <div>
-        主页
+        <header>
+            <index-header></index-header>
+        </header>
+        <index-nav></index-nav>
+        <index-contain></index-contain>
     </div>
 </template>
 
 <script>
-import common from "../components/common/common"
+import indexHeader from "../components/eleIndex/indexHeader"
+import indexNav from "../components/eleIndex/indexNav"
+import indexContain from "../components/eleIndex/indexContain"
 export default {
     components:{
-        common
+        indexHeader,
+        indexNav,
+        indexContain,
     }
 }
 </script>
