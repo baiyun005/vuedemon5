@@ -1,8 +1,6 @@
 <template>
     <div>
-        <header>
-            <common>上海</common>
-        </header>
+        主页
     </div>
 </template>
 
